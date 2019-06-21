@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+ROM ubuntu:16.04
 
 LABEL maintainer="Amazon AI"
 
@@ -18,10 +18,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 
-#Only majolr change ferom the cpu file
-RUN pip install --no-cache https://s3.amazonaws.com/amazonei-apachemxnet/amazonei_mxnet-1.4.0-py2.py3-none-manylinux1_x86_64.whl \
-keras-mxnet==2.2.4.1 \
-onnx==1.4.1
+RUN apt-get update && apt-get install -y python-pip
+#Only major change ferom the cpu file
+RUN pip install --no-cache https://s3.amazonaws.com/amazonei-apachemxnet/amazonei_mxnet-1.4.1-py2.py3-none-manylinux1_x86_64.whl
+# \
+#keras-mxnet==2.2.4.1 \
+#onnx==1.4.1
+#Some issue with python 2 for the above ones.
+
 
 # See http://bugs.python.org/issue19846
 ENV LANG C.UTF-8
